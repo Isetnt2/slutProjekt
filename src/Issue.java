@@ -14,10 +14,11 @@ public class Issue {
     private String type;
     private int priorityLevel;
     private boolean fixed;
-    public Issue(String name, String description, String type){
+    public Issue(String name, String description, String type, int priorityLevel){
         this.name = name;
         this.description = description;
         this.type = type;
+        this.priorityLevel = priorityLevel;
     }
     public void setFixed(boolean fixed){
         this.fixed = fixed;
@@ -45,7 +46,7 @@ public class Issue {
     }
     @Override
     public String toString(){
-        String returnString = "Name: " + this.name +"\nDescription: "+ this.description + "\n Type: " + this.type + "\n Fixed: " + this.fixed + "\nPriority: " + this.priorityLevel;
+        String returnString = "Name: " + this.name +" Description: "+ this.description + " Type: " + this.type + " Fixed: " + this.fixed + "Priority: " + this.priorityLevel;
         return returnString;
     }
 }

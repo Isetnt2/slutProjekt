@@ -21,6 +21,9 @@ public class IssueList {
     public ArrayList getIssues(){
         return this.issues;
     }
+    public Issue get(int i){
+        return this.issues.get(i);
+    }
     public int getTotalIssues(){
         return this.issues.size();
     }
