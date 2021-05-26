@@ -46,7 +46,7 @@ public class Issue {
     }
     @Override
     public String toString(){
-        String returnString = "Name: " + this.name +" Description: "+ this.description + " Type: " + this.type + " Fixed: " + this.fixed + "Priority: " + this.priorityLevel;
+        String returnString = "Name: " + this.name + " Type: " + this.type + " Fixed: " + this.fixed + "Priority: " + this.priorityLevel;
         return returnString;
     }
 }

@@ -33,7 +33,9 @@ public class IssueList {
     public int search(String name){
         return searchName(issues, name);
     }
-    
+    public int size(){
+        return this.issues.size();
+    }
     
     private ArrayList<Issue> quickSort(ArrayList<Issue> input){
        if(input.size() <= 1){
