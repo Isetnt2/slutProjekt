@@ -51,6 +51,8 @@ public class jPanel extends javax.swing.JPanel {
         descPreview = new javax.swing.JTextArea();
         fixedToggle = new javax.swing.JCheckBox();
         removeBtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        ritYta1 = new GraphArea();
         sortComboBox = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
 
@@ -183,11 +185,29 @@ public class jPanel extends javax.swing.JPanel {
         });
 
         removeBtn.setText("Remove");
+        removeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeBtnMouseClicked(evt);
+            }
+        });
         removeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeBtnActionPerformed(evt);
             }
         });
+
+        jLabel6.setText("Priority:");
+
+        javax.swing.GroupLayout ritYta1Layout = new javax.swing.GroupLayout(ritYta1);
+        ritYta1.setLayout(ritYta1Layout);
+        ritYta1Layout.setHorizontalGroup(
+            ritYta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        ritYta1Layout.setVerticalGroup(
+            ritYta1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,26 +216,36 @@ public class jPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ritYta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(fixedToggle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(removeBtn))
-                    .addComponent(jScrollPane3))
+                        .addComponent(removeBtn)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fixedToggle)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ritYta1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fixedToggle))
                     .addComponent(removeBtn))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        sortComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Namn 0-9", "Namn 9-0", "Prioritet 0-9", "Prioritet 9-0" }));
+        sortComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID 0-9", "ID  9-0", "Prioritet 0-9", "Prioritet 9-0" }));
         sortComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sortComboBoxActionPerformed(evt);
@@ -238,9 +268,10 @@ public class jPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(sortComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 147, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,25 +300,27 @@ public class jPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         // TODO add your handling code here:
         this.descPreview.setText("");
-        String searchStr = this.searchField.getText();
-        try{
-        int i = search(searchStr);
-        this.descPreview.setText(this.Issues.get(i).getDescription());
-        this.fixedToggle.setSelected(this.Issues.get(i).getFixed());
-        } catch(Exception e){
-            ErrorMessage("Vändligen skriv in ett korrekt namn.");
+        this.search = this.searchField.getText();
+        try {
+            int i = search(this.search);
+            this.descPreview.setText(this.Issues.get(i).getDescription());
+            this.fixedToggle.setSelected(this.Issues.get(i).getFixed());
+            this.ritYta1.setPriority(this.Issues.get(i).getPriorityLevel());
+            this.searchField.setText("");
+        } catch (Exception e) {
+            ErrorMessage("Vändligen skriv in ett korrekt ID.");
+            this.searchField.setText("");
         }
 
     }//GEN-LAST:event_searchBtnActionPerformed
@@ -308,11 +341,16 @@ public class jPanel extends javax.swing.JPanel {
         Issues.addIssue(newIssue);
         this.DescriptionArea.setText("");
         this.issueDialog.setVisible(false);
+        sort();
         updateIssueTextArea();
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void sortComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortComboBoxActionPerformed
         // TODO add your handling code here:
+        sort();
+        updateIssueTextArea();
+    }//GEN-LAST:event_sortComboBoxActionPerformed
+    private void sort() {
         switch (this.sortComboBox.getSelectedIndex()) {
             case 0:
                 this.Issues.sortByNameLowHigh();
@@ -330,19 +368,35 @@ public class jPanel extends javax.swing.JPanel {
                 break;
         }
         updateIssueTextArea();
-    }//GEN-LAST:event_sortComboBoxActionPerformed
-
+    }
     private void fixedToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fixedToggleActionPerformed
         // TODO add your handling code here:
-        String searchStr = this.searchField.getText();
-        int i = search(searchStr);
-        this.Issues.get(i).setFixed(this.fixedToggle.isSelected());
-        updateIssueTextArea();
+        try {
+            int i = search(this.search);
+            this.Issues.get(i).setFixed(this.fixedToggle.isSelected());
+            updateIssueTextArea();
+        } catch (Exception e) {
+            ErrorMessage("Vändligen skriv in ett korrekt ID.");
+            this.fixedToggle.setSelected(!this.fixedToggle.isSelected());
+        }
     }//GEN-LAST:event_fixedToggleActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_removeBtnActionPerformed
+
+    private void removeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeBtnMouseClicked
+        // TODO add your handling code here:
+        try {
+            int i = search(this.search);
+            this.Issues.remove(i);
+            this.descPreview.setText("");
+            this.searchField.setText("");
+            updateIssueTextArea();
+        } catch (Exception e) {
+            ErrorMessage("Vändligen skriv in ett korrekt ID.");
+        }
+    }//GEN-LAST:event_removeBtnMouseClicked
 
     private String generateID() {
         int id = rnd.nextInt((99999 - 10000)) + 10000;
@@ -351,7 +405,7 @@ public class jPanel extends javax.swing.JPanel {
 
     private int search(String str) {
         for (int i = 0; i < Issues.size(); i++) {
-            if (this.Issues.get(i).getName().equals(str)) {
+            if (this.Issues.get(i).getID().equals(str)) {
                 return i;
             }
         }
@@ -366,6 +420,7 @@ public class jPanel extends javax.swing.JPanel {
     }
     private Random rnd = new Random();
     private IssueList Issues = new IssueList();
+    private String search;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea DescriptionArea;
     private javax.swing.JButton addBtn;
@@ -380,12 +435,14 @@ public class jPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JComboBox<String> priorityCombo;
     private javax.swing.JButton removeBtn;
+    private GraphArea ritYta1;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchField;
     private javax.swing.JComboBox<String> sortComboBox;

@@ -30,7 +30,9 @@ public class IssueList {
     public Issue get(int i) {
         return this.issues.get(i);
     }
-
+    public void remove(int i){
+        this.issues.remove(i);
+    }
     public int getTotalIssues() {
         return this.issues.size();
     }
@@ -65,7 +67,7 @@ public class IssueList {
         int n = this.issues.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
-                if (this.issues.get(j).getName().compareToIgnoreCase(this.issues.get(j + 1).getName()) < 0) {
+                if (this.issues.get(j).getID().compareToIgnoreCase(this.issues.get(j + 1).getID()) < 0) {
                     Issue temp = this.issues.get(j);
                     this.issues.set(j, this.issues.get(j + 1));
                     this.issues.set(j + 1, temp);
@@ -78,7 +80,7 @@ public class IssueList {
         int n = this.issues.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
-                if (this.issues.get(j).getName().compareToIgnoreCase(this.issues.get(j + 1).getName()) > 0) {
+                if (this.issues.get(j).getID().compareToIgnoreCase(this.issues.get(j + 1).getID()) > 0) {
                     Issue temp = this.issues.get(j);
                     this.issues.set(j, this.issues.get(j + 1));
                     this.issues.set(j + 1, temp);
@@ -97,7 +99,7 @@ public class IssueList {
 
     private int searchName(ArrayList<Issue> list, String value) {
         for (int i = 0; i < list.size(); i++) {
-            if (Objects.equals(Integer.valueOf(value), Integer.valueOf(list.get(i).getName()))) {
+            if (Objects.equals(Integer.valueOf(value), Integer.valueOf(list.get(i).getID()))) {
                 return i;
             }
         }

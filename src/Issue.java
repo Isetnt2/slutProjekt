@@ -9,13 +9,13 @@
  * @author isak.ahlberg
  */
 public class Issue {
-    private String name;
+    private String ID;
     private String description;
     private String type;
     private int priorityLevel;
     private boolean fixed;
     public Issue(String name, String description, String type, int priorityLevel){
-        this.name = name;
+        this.ID = name;
         this.description = description;
         this.type = type;
         this.priorityLevel = priorityLevel;
@@ -26,11 +26,11 @@ public class Issue {
     public boolean getFixed(){
         return this.fixed;
     }
-    public void setName(String name){
-        this.name = name;
+    public void setID(String ID){
+        this.ID = ID;
     }
-    public String getName(){
-        return this.name;
+    public String getID(){
+        return this.ID;
     }
     public void setDescription(String description){
         this.description = description;
@@ -46,7 +46,7 @@ public class Issue {
     }
     @Override
     public String toString(){
-        String returnString = "Name: " + this.name + " Type: " + this.type + " Fixed: " + this.fixed + " Priority: " + this.priorityLevel;
+        String returnString = "Name: " + this.ID + " Type: " + this.type + " Fixed: " + this.fixed + " Priority: " + this.priorityLevel;
         return returnString;
     }
 }
