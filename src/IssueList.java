@@ -10,74 +10,97 @@
  */
 import java.util.ArrayList;
 import java.util.Objects;
+
 public class IssueList {
+
     private ArrayList<Issue> issues = new ArrayList();
-    public IssueList(){
-        
+
+    public IssueList() {
+
     }
-    public void addIssue(Issue issue){
+
+    public void addIssue(Issue issue) {
         this.issues.add(issue);
     }
-    public ArrayList getIssues(){
+
+    public ArrayList getIssues() {
         return this.issues;
     }
-    public Issue get(int i){
+
+    public Issue get(int i) {
         return this.issues.get(i);
     }
-    public int getTotalIssues(){
+
+    public int getTotalIssues() {
         return this.issues.size();
     }
-    public void sortByPriority(){
-        quickSort(this.issues);
-    }
-    public int search(String name){
-        return searchName(issues, name);
-    }
-    public int size(){
-        return this.issues.size();
-    }
-    
-    private ArrayList<Issue> quickSort(ArrayList<Issue> input){
-       if(input.size() <= 1){
-           return input;
-       }
-       int middle = (int) Math.ceil((double)input.size() / 2);
-       Issue pivot = input.get(middle);
-       
-       ArrayList<Issue> less = new ArrayList<>();
-       ArrayList<Issue> greater = new ArrayList<>();
-       
-        for (int i = 0; i < input.size(); i++) {
-            if(input.get(i).getPriorityLevel() <= pivot.getPriorityLevel()){
-                if(i == middle){
-                    continue;
+
+    public void sortByPriorityHighLow() {
+        int n = this.issues.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (this.issues.get(j).getPriorityLevel() < this.issues.get(j + 1).getPriorityLevel()) {
+                    Issue temp = this.issues.get(j);
+                    this.issues.set(j, this.issues.get(j + 1));
+                    this.issues.set(j + 1, temp);
                 }
-                less.add(input.get(i));
-            }
-            else{
-                greater.add(input.get(i));
             }
         }
-        return concatenate(quickSort(less), pivot, quickSort(greater));
     }
-    private int searchName(ArrayList<Issue> list, String value){
+
+    public void sortByPriorityLowHigh() {
+        int n = this.issues.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (this.issues.get(j).getPriorityLevel() > this.issues.get(j + 1).getPriorityLevel()) {
+                    Issue temp = this.issues.get(j);
+                    this.issues.set(j, this.issues.get(j + 1));
+                    this.issues.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
+    public void sortByNameHighLow() {
+        int n = this.issues.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (this.issues.get(j).getName().compareToIgnoreCase(this.issues.get(j + 1).getName()) < 0) {
+                    Issue temp = this.issues.get(j);
+                    this.issues.set(j, this.issues.get(j + 1));
+                    this.issues.set(j + 1, temp);
+                }
+            }
+        }
+    }
+    
+    public void sortByNameLowHigh() {
+        int n = this.issues.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (this.issues.get(j).getName().compareToIgnoreCase(this.issues.get(j + 1).getName()) > 0) {
+                    Issue temp = this.issues.get(j);
+                    this.issues.set(j, this.issues.get(j + 1));
+                    this.issues.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
+    public int search(String name) {
+        return searchName(issues, name);
+    }
+
+    public int size() {
+        return this.issues.size();
+    }
+
+    private int searchName(ArrayList<Issue> list, String value) {
         for (int i = 0; i < list.size(); i++) {
-            if(Objects.equals(Integer.valueOf(value), Integer.valueOf(list.get(i).getName()))){
+            if (Objects.equals(Integer.valueOf(value), Integer.valueOf(list.get(i).getName()))) {
                 return i;
             }
         }
         return -1;
-    }
-    private ArrayList<Issue> concatenate(ArrayList<Issue> less, Issue pivot, ArrayList<Issue> greater){
-        ArrayList<Issue> list = new ArrayList<>();
-        
-        for (int i = 0; i < less.size(); i++) {
-            list.add(less.get(i));
-        }
-        list.add(pivot);
-        for (int i = 0; i < greater.size(); i++) {
-            list.add(greater.get(i));
-        }
-        return list;
     }
 }

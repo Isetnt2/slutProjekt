@@ -9,6 +9,8 @@
  * @author isak
  */
 import java.util.Random;
+import javax.swing.JOptionPane;
+
 public class jPanel extends javax.swing.JPanel {
 
     /**
@@ -42,12 +44,15 @@ public class jPanel extends javax.swing.JPanel {
         issueArea = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         searchField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        searchBtn = new javax.swing.JButton();
         dialogBtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         descPreview = new javax.swing.JTextArea();
         fixedToggle = new javax.swing.JCheckBox();
+        removeBtn = new javax.swing.JButton();
+        sortComboBox = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
 
         issueDialog.setMinimumSize(new java.awt.Dimension(491, 368));
 
@@ -149,10 +154,10 @@ public class jPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Choose Issue:");
 
-        jButton1.setText("Go");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        searchBtn.setText("Go");
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                searchBtnActionPerformed(evt);
             }
         });
 
@@ -165,11 +170,24 @@ public class jPanel extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        descPreview.setEditable(false);
         descPreview.setColumns(20);
         descPreview.setRows(5);
         jScrollPane3.setViewportView(descPreview);
 
         fixedToggle.setText("Fixed");
+        fixedToggle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fixedToggleActionPerformed(evt);
+            }
+        });
+
+        removeBtn.setText("Remove");
+        removeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,7 +198,8 @@ public class jPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(fixedToggle)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(removeBtn))
                     .addComponent(jScrollPane3))
                 .addContainerGap())
         );
@@ -190,9 +209,20 @@ public class jPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(fixedToggle)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fixedToggle)
+                    .addComponent(removeBtn))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
+
+        sortComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Namn 0-9", "Namn 9-0", "Prioritet 0-9", "Prioritet 9-0" }));
+        sortComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Sort:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -200,17 +230,22 @@ public class jPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dialogBtn)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dialogBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(sortComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(17, 17, 17))
         );
@@ -223,14 +258,18 @@ public class jPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
+                            .addComponent(searchBtn)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(dialogBtn)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dialogBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(sortComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
@@ -239,27 +278,27 @@ public class jPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         // TODO add your handling code here:
         this.descPreview.setText("");
-        String search = this.searchField.getText();
-        for (int i = 0; i < Issues.size(); i++) {
-            if(this.Issues.get(i).getName().equals(search)){
-                this.descPreview.setText(this.Issues.get(i).getDescription());
-                this.fixedToggle.setSelected(this.Issues.get(i).getFixed());
-                break;
-            }
-            if(i == Issues.size() - 1){
-                
-            }
+        String searchStr = this.searchField.getText();
+        try{
+        int i = search(searchStr);
+        this.descPreview.setText(this.Issues.get(i).getDescription());
+        this.fixedToggle.setSelected(this.Issues.get(i).getFixed());
+        } catch(Exception e){
+            ErrorMessage("Vändligen skriv in ett korrekt namn.");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_searchBtnActionPerformed
 
     private void dialogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dialogBtnActionPerformed
         // TODO add your handling code here:
         issueDialog.setVisible(true);
     }//GEN-LAST:event_dialogBtnActionPerformed
-
+    private void ErrorMessage(String msg) {
+        JOptionPane.showMessageDialog(null, msg, "Felmeddelande", JOptionPane.ERROR_MESSAGE);
+    }
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
         String description = this.DescriptionArea.getText();
@@ -269,16 +308,61 @@ public class jPanel extends javax.swing.JPanel {
         Issues.addIssue(newIssue);
         this.DescriptionArea.setText("");
         this.issueDialog.setVisible(false);
-        addIssue(newIssue);
+        updateIssueTextArea();
     }//GEN-LAST:event_addBtnActionPerformed
 
-    private String generateID(){
-       int id = rnd.nextInt((99999 - 10000)) + 10000;
-       return Integer.toString(id); 
+    private void sortComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortComboBoxActionPerformed
+        // TODO add your handling code here:
+        switch (this.sortComboBox.getSelectedIndex()) {
+            case 0:
+                this.Issues.sortByNameLowHigh();
+                break;
+            case 1:
+                this.Issues.sortByNameHighLow();
+                break;
+            case 2:
+                this.Issues.sortByPriorityLowHigh();
+                break;
+            case 3:
+                this.Issues.sortByPriorityHighLow();
+                break;
+            default:
+                break;
+        }
+        updateIssueTextArea();
+    }//GEN-LAST:event_sortComboBoxActionPerformed
+
+    private void fixedToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fixedToggleActionPerformed
+        // TODO add your handling code here:
+        String searchStr = this.searchField.getText();
+        int i = search(searchStr);
+        this.Issues.get(i).setFixed(this.fixedToggle.isSelected());
+        updateIssueTextArea();
+    }//GEN-LAST:event_fixedToggleActionPerformed
+
+    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeBtnActionPerformed
+
+    private String generateID() {
+        int id = rnd.nextInt((99999 - 10000)) + 10000;
+        return Integer.toString(id);
     }
-    private void addIssue(Issue newIssue){
-        String newStr = this.issueArea.getText() +"\n" + newIssue.toString();
-        this.issueArea.setText(newStr);
+
+    private int search(String str) {
+        for (int i = 0; i < Issues.size(); i++) {
+            if (this.Issues.get(i).getName().equals(str)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void updateIssueTextArea() {
+        this.issueArea.setText("");
+        for (int i = 0; i < this.Issues.size(); i++) {
+            this.issueArea.setText(this.issueArea.getText() + this.Issues.get(i).toString() + "\n");
+        }
     }
     private Random rnd = new Random();
     private IssueList Issues = new IssueList();
@@ -291,17 +375,20 @@ public class jPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox fixedToggle;
     private javax.swing.JTextArea issueArea;
     private javax.swing.JDialog issueDialog;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JComboBox<String> priorityCombo;
+    private javax.swing.JButton removeBtn;
+    private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchField;
+    private javax.swing.JComboBox<String> sortComboBox;
     private javax.swing.JComboBox<String> typeCombo;
     private javax.swing.JDialog warningDialog;
     // End of variables declaration//GEN-END:variables
