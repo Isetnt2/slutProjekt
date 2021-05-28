@@ -310,13 +310,16 @@ public class jPanel extends javax.swing.JPanel {
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         // TODO add your handling code here:
+        // Sets the description preview to ""
         this.descPreview.setText("");
+        // Sets the search term for use if the remove and setFixed methods
         this.search = this.searchField.getText();
+        // Tries to search, exception thrown if search term is invalid.
         try {
             int i = search(this.search);
             this.descPreview.setText(this.Issues.get(i).getDescription());
-            this.fixedToggle.setSelected(this.Issues.get(i).getFixed());
-            this.ritYta1.setPriority(this.Issues.get(i).getPriorityLevel());
+            this.fixedToggle.setSelected(this.Issues.get(i).getFixed()); // Sets the check box to toggles or untoggled based on if the issue is fixed or not
+            this.ritYta1.setPriority(this.Issues.get(i).getPriorityLevel()); // sets the priority level for the graphical class.
             this.searchField.setText("");
         } catch (Exception e) {
             ErrorMessage("Vändligen skriv in ett korrekt ID.");
@@ -332,24 +335,28 @@ public class jPanel extends javax.swing.JPanel {
     private void ErrorMessage(String msg) {
         JOptionPane.showMessageDialog(null, msg, "Felmeddelande", JOptionPane.ERROR_MESSAGE);
     }
+    // Adds an issue to the list
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
-        String description = this.DescriptionArea.getText();
-        String type = this.typeCombo.getItemAt(this.typeCombo.getSelectedIndex());
-        int priority = Integer.valueOf(this.priorityCombo.getItemAt(this.priorityCombo.getSelectedIndex()));
-        Issue newIssue = new Issue(generateID(), description, type, priority);
-        Issues.addIssue(newIssue);
-        this.DescriptionArea.setText("");
-        this.issueDialog.setVisible(false);
-        sort();
-        updateIssueTextArea();
+        String description = this.DescriptionArea.getText(); // Gets the description.
+        String type = this.typeCombo.getItemAt(this.typeCombo.getSelectedIndex()); // Gets the type of issue
+        int priority = Integer.valueOf(this.priorityCombo.getItemAt(this.priorityCombo.getSelectedIndex())); // Gets the priority of the issue
+        // Creates a new Issue based on the description, type, priority and auto generated ID
+        Issue newIssue = new Issue(generateID(), description, type, priority); 
+        Issues.addIssue(newIssue); // Adds the new issue to the list
+        this.DescriptionArea.setText(""); // resets the description text area
+        this.issueDialog.setVisible(false); // Hides the add issue dialog
+        sort(); // sorts the issues ArrayList based on selected sorting mode
+        updateIssueTextArea(); // Updates the visual representation of the issue list. 
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void sortComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortComboBoxActionPerformed
         // TODO add your handling code here:
+        // Changes sorting mode and sorts the issues ArrayList
         sort();
         updateIssueTextArea();
     }//GEN-LAST:event_sortComboBoxActionPerformed
+    // Sort the list of issues based on what sort mode is selected.
     private void sort() {
         switch (this.sortComboBox.getSelectedIndex()) {
             case 0:
@@ -371,13 +378,15 @@ public class jPanel extends javax.swing.JPanel {
     }
     private void fixedToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fixedToggleActionPerformed
         // TODO add your handling code here:
+        // Try-Catch for if the search bar is empty or has an invalid search term.
         try {
+            // Searches for this.search so it can't be deleted.
             int i = search(this.search);
             this.Issues.get(i).setFixed(this.fixedToggle.isSelected());
             updateIssueTextArea();
         } catch (Exception e) {
             ErrorMessage("Vändligen skriv in ett korrekt ID.");
-            this.fixedToggle.setSelected(!this.fixedToggle.isSelected());
+            this.fixedToggle.setSelected(!this.fixedToggle.isSelected()); // If an exception is thrown is reverts the toggle switch.
         }
     }//GEN-LAST:event_fixedToggleActionPerformed
 
@@ -387,6 +396,7 @@ public class jPanel extends javax.swing.JPanel {
 
     private void removeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeBtnMouseClicked
         // TODO add your handling code here:
+        // Removes the specified issue. Exception thrown if ID is invalid.
         try {
             int i = search(this.search);
             this.Issues.remove(i);
@@ -397,12 +407,21 @@ public class jPanel extends javax.swing.JPanel {
             ErrorMessage("Vändligen skriv in ett korrekt ID.");
         }
     }//GEN-LAST:event_removeBtnMouseClicked
-
+    // Generates an ID.
     private String generateID() {
-        int id = rnd.nextInt((99999 - 10000)) + 10000;
-        return Integer.toString(id);
+        int id = rnd.nextInt((999 - 100)) + 100;
+        /*
+        If the generated id is a duplicate it generates a new ID, self-calling.
+        */
+        if(search(Integer.toString(id)) == -1){
+            return Integer.toString(id);
+        } else{
+            System.out.println(id);
+            generateID();
+        }
+        return null; //Just so it doesn't complain about missing return statement.
     }
-
+    // Searches for an ID in the Issues ArrayList.
     private int search(String str) {
         for (int i = 0; i < Issues.size(); i++) {
             if (this.Issues.get(i).getID().equals(str)) {
@@ -411,13 +430,15 @@ public class jPanel extends javax.swing.JPanel {
         }
         return -1;
     }
-
+    // Updates the visual representation of the Issues ArrayList. It's used when sorting and adding an issue.
+    // It updates the IssueTextArea.
     public void updateIssueTextArea() {
         this.issueArea.setText("");
         for (int i = 0; i < this.Issues.size(); i++) {
             this.issueArea.setText(this.issueArea.getText() + this.Issues.get(i).toString() + "\n");
         }
     }
+    // Variable declaration - do modify
     private Random rnd = new Random();
     private IssueList Issues = new IssueList();
     private String search;

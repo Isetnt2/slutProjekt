@@ -10,17 +10,19 @@
  */
 import java.awt.Graphics;
 public class GraphArea extends javax.swing.JPanel {
-    private priorityGraphics priorityGraphic = new priorityGraphics(0);
+    private priorityGraphics priorityGraphic = new priorityGraphics(0); // Creates the graphical class with priority 0.
     /**
      * Creates new form ritYta
      */
     public GraphArea() {
         initComponents();
     }
+    // Prints the graphical class
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         priorityGraphic.paint(g);
     }
+    // Used to set the priority and repaints the class. Used in jPanel so it gains access to the graphical class.
     public void setPriority(int priority){
         priorityGraphic.setpriority(priority);
         repaint();
